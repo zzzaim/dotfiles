@@ -1,2 +1,2 @@
 # Node version manager
-NVM_DIR=~/.nvm
+NVM_DIR=$(realpath $HOME/.nvm)
