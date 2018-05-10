@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -eu
+
+: ${1:?"(Usage: $0 GROUP path)"}
+: ${2:?"(Usage: $0 group PATH)"}
+
+group="${1}"
+path="${2%/}"
+
+echo "chgrp -R  $group $path"
+chgrp -R "$group" "$path"
+
+echo "chmod 775 $path/[directories]"
+find "$path" -type d | xargs chmod 775
+
+echo "chmod +s  $path/[directories]"
+find "$path" -type d | xargs chmod +s
+
+echo "chmod 664 $path/[files]"
+find "$path" -type f | xargs chmod 664
+
+if [[ -d "$path/bin" ]]; then
+  echo "chmod 775 $path/bin/[files]"
+  find "$path/bin" -type f | xargs chmod 775
+fi
