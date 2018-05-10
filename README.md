@@ -22,15 +22,16 @@ As per GNU Stow convention, each directory in this repo is a *package*:
 > a related collection of files and directories that you wish to
 > administer as a unit.
 
-Package        | Description
--------------- | -----------
-[bash](bash)   | Base bash configs, scripts
-[bin](bin)     | General utilities
-[git](git)     | Git config
-[nvm](nvm)     | Node version manager
-[ssh](ssh)     | SSH config / utils
-[tmux](tmux)   | Tmux config / utils
-[vim](vim)     | vim config
+Package          | Description
+---------------- | -----------
+[bash](bash)     | Base bash configs, scripts
+[bin](bin)       | General utilities
+[colors](colors) | Shell color scheme scipts ([base16](https://github.com/chriskempson/base16-shell))
+[git](git)       | Git config
+[nvm](nvm)       | Node version manager
+[ssh](ssh)       | SSH config / utils
+[tmux](tmux)     | Tmux config / utils
+[vim](vim)       | vim config
 
 ### Package structure
 
