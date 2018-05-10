@@ -39,14 +39,13 @@ set statusline=\ %f\ %y%m%r
 
 " Status line (midddle)
 " Syntastic error messages
-if exists('SyntasticStatuslineFlag')
-  set statusline+=\ %#Error#
-  set statusline+=\ %{SyntasticStatuslineFlag()}\ 
+if !empty(glob('~/.vim/bundle/syntastic'))
+  let g:syntastic_stl_format = " %E{Err L:%fe #%e}%B{, }%W{Warn L:%fw #%w} "
+  set statusline+=%=%#WarningMsg#%{SyntasticStatuslineFlag()}%*
 endif
 
 " Status line (right)
 " 'Col:n Line:n/N (n%)'
-set statusline+=%=%*
 set statusline+=\ Col:%c
 set statusline+=\ Line:%l/%L
 set statusline+=\ (%P)\ 
@@ -113,3 +112,4 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 hi! link makeStatement makeCommands
 hi! link htmlTag htmlTagName
 hi! link htmlEndTag htmlTag
+hi! Search ctermfg=0
