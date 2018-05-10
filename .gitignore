@@ -1,7 +1,13 @@
+# vim
 vim/.vim/backup/*
 vim/.vim/swap/*
 vim/.vim/undo/*
 vim/.vim/viminfo
 vim/.vim/.*
 
+# virtualenv
+virtualenv/.virtualenv/*
+!virtualenv/.virtualenv/virtualenv.ini
+
+# others
 !.gitkeep

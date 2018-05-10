@@ -163,7 +163,7 @@ _PS1_prompt() {
   fi
 
   if [[ -n "$virtualenv" ]]; then
-    prefix+=("${eBlue}$virtualenv${eend}")
+    prefix+=("${eYellow}$virtualenv${eend}")
   fi
 
   PS1="$PS1_prompt"
