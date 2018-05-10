@@ -81,14 +81,20 @@ let g:javascript_plugin_jsdoc = 1
 let mapleader = ','
 
 " Key bindings
-nmap          <Leader><Space>  :noh<CR>
-nmap <silent> <Leader><Leader> <Plug>(CommandT)
+nmap <Leader><Space> :noh<CR>
 
 " Autocommands
 augroup vimrc
   autocmd!
   autocmd BufNewFile,BufRead *.njs,*.njk set ft=jinja
 augroup END
+
+" CtrlP
+let g:ctrlp_map = '<Leader><Leader>'
+let g:ctrlp_custom_ignore = '\v[\/]node_modules$'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_open_new_file = 't'
+let g:ctrlp_open_multiple_files = 'tj'
 
 " CommandT
 let g:CommandTAcceptSelectionMap = '<C-o>'
