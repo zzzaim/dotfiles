@@ -39,8 +39,8 @@ A package is organized using a conventional folder structure.
 
 Folder       | Description
 ------------ | -----------
-`bin/`       | Used for programs and scripts. Example: [tmux/bin/startmux](tmux/bin/strartmux)
-`.bashrc.d/` | Used to add custom scripts to `.bashrc`. Example: [nvm/.bashrc.d](nvm/bashrc.d). Prefix files with a number to control source ordering.
+`bin/`       | Used for programs and scripts. Example: [tmux/bin/startmux](tmux/bin/startmux)
+`.bashrc.d/` | Used to add custom scripts to `.bashrc`. Example: [nvm/.bashrc.d](nvm/.bashrc.d). Prefix files with a number to control source ordering.
 
 ### Package managing
 
