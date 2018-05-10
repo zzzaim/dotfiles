@@ -9,7 +9,7 @@ TARGET=$HOME
 for p in "$@"; do
   case "$p" in
     -n|--no|--simulate)
-      DRY=echo
+      DRY=-nv
       ;;
     -t|--target)
       PARAM=target
@@ -33,7 +33,7 @@ fi
 cd $(dirname $0)
 
 _stow() {
-  $DRY stow -t $TARGET --ignore='^.stow-.*' --ignore='README.*' $@
+  stow $DRY -t $TARGET --ignore='\.stow-.*' --ignore='\.gitkeep' $@
 }
 
 for pkg in *; do
