@@ -81,7 +81,7 @@ _PS1_git_branch() {
 
   # get git status
   # this is slightly faster than `git status --porcelain`
-  status=$(git ls-files -domu --exclude-standard --directory --no-empty-directory 2>/dev/null)
+  status=$(cd $repo && git ls-files -domu --exclude-standard --directory --no-empty-directory 2>/dev/null)
 
   [[ -n "$status" ]] && status=1
 
