@@ -22,3 +22,6 @@
 [submodule "colors/.config/base16-shell"]
 	path = colors/.config/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
+[submodule "z/.config/z"]
+	path = z/.config/z
+	url = https://github.com/rupa/z.git
