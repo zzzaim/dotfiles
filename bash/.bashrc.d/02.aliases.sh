@@ -52,6 +52,7 @@ alias chrome='${WIN_MNT}/c/Program Files (x86)/Google/Chrome/Application/chrome.
 alias json='python -m json.tool'
 alias a2='sudo service apache2 start'
 alias ra2='sudo service apache2 restart'
+alias ok=true
 
 # Generate random string
 rdstr() {

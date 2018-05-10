@@ -1,7 +1,7 @@
 # node env colors
 declare -A PS1_node_env_colors
 PS1_node_env_colors[development]="$eDarkgray"
-PS1_node_env_colors[production]="$eRed"
+PS1_node_env_colors[production]="$eGreen"
 PS1_node_env_colors[staging]="$eYellow"
 
 PS1_prompt_var=PS1_PROMPT_$USER
@@ -130,24 +130,25 @@ _PS1_term_title() {
 _PS1_prompt() {
   local prefix=()
   local jobcount="$(jobs -p | wc -l)"
-  local job=""
-  local git_color="${Green}"
+  local git_color="${eBlue}"
   local node_env="${NODE_ENV:-development}"
-  local node_color=${PS1_node_env_colors[$node_env]:-$Darkgray}
+  local node_color=${PS1_node_env_colors[$node_env]:-$eDarkgray}
   local virtualenv="${VIRTUAL_ENV##*/}"
 
   _PS1_term_title "$(dirs)"
   _PS1_node_version
   _PS1_git_branch
 
+  if [[ "$PS1_COMMAND_ERROR" -gt 0 ]]; then
+    prefix+=("$(Black lightred) $PS1_COMMAND_ERROR ${eend}")
+  fi
+
   if [[ "$jobcount" -gt 0 ]]; then
-    job="${jobcount##* } job"
-    [[ "$jobcount" -gt 1 ]] && job="${job}s"
-    prefix+=("${Darkgray}[$job]${eend}")
+    prefix+=("${eDarkgray}[${jobcount##* }]${eend}")
   fi
 
   if [[ "$GIT_STATUS" -eq 1 ]]; then
-    git_color="$Red"
+    git_color="$eRed"
   fi
 
   if [[ -n "$GIT_BRANCH" ]]; then
@@ -155,7 +156,7 @@ _PS1_prompt() {
   fi
 
   if [[ -n "$NODE_VER" ]]; then
-    prefix+=("${eCyan}n${NODE_VER}${eend}")
+    prefix+=("${node_color}n${NODE_VER}${eend}")
   fi
 
   if [[ "$NODE_PKG" -eq 1 ]]; then
@@ -163,7 +164,7 @@ _PS1_prompt() {
   fi
 
   if [[ -n "$virtualenv" ]]; then
-    prefix+=("${eYellow}$virtualenv${eend}")
+    prefix+=("${eCyan}$virtualenv${eend}")
   fi
 
   PS1="$PS1_prompt"
@@ -174,6 +175,6 @@ _PS1_prompt() {
   export PS1
 }
 
-export PROMPT_COMMAND=_PS1_prompt
+export PROMPT_COMMAND='PS1_COMMAND_ERROR=$?; _PS1_prompt'
 
 # vim: ft=sh
