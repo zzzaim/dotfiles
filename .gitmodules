@@ -25,3 +25,6 @@
 [submodule "z/.config/z"]
 	path = z/.config/z
 	url = https://github.com/rupa/z.git
+[submodule "nvm/.nvm"]
+	path = nvm/.nvm
+	url = https://github.com/creationix/nvm.git
