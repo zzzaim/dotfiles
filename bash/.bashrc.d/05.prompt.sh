@@ -26,6 +26,7 @@ _PS1_git_branch() {
   local gitdir=""
   local head=""
   local branch=""
+  local submod=""
   local status=""
   local cur="$PWD"
 
@@ -44,20 +45,34 @@ _PS1_git_branch() {
     return 0
   fi
 
-  # get git HEAD without using a git command
-  read head < "$gitdir/HEAD"
+  # .git is a plain file, maybe it's a submodule?
+  if [[ -f "$gitdir" ]]; then
+    read gitdir < "$gitdir"
+    gitdir="${gitdir##gitdir: }"
+    submod='(m)'
 
-  case "$head" in
-    ref:*)
-      branch="${head##*/}"
-      ;;
-    "")
-      branch=""
-      ;;
-    *)
-      branch="d:${head:0:7}"
-      ;;
-  esac
+    # not a submodule, return
+    if [[ -z "$gitdir" || ! -f "$gitdir/HEAD" ]]; then
+      return 0
+    fi
+  fi
+
+  if [[ -f "$gitdir/HEAD" ]]; then
+    # get git HEAD without using a git command
+    read head < "$gitdir/HEAD"
+
+    case "$head" in
+      ref:*)
+        branch="${head##*/}"
+        ;;
+      "")
+        branch=""
+        ;;
+      *)
+        branch="d:${head:0:7}"
+        ;;
+    esac
+  fi
 
   # no branch? return
   if [[ -z "$branch" ]]; then
@@ -66,12 +81,12 @@ _PS1_git_branch() {
 
   # get git status
   # this is slightly faster than `git status --porcelain`
-  status=$(git ls-files -dmo --exclude-standard --directory --no-empty-directory 2>/dev/null)
+  status=$(git ls-files -domu --exclude-standard --directory --no-empty-directory 2>/dev/null)
 
   [[ -n "$status" ]] && status=1
 
   export GIT_STATUS="$status"
-  export GIT_BRANCH="$branch"
+  export GIT_BRANCH="${branch}${submod}"
 }
 
 _PS1_node_version() {
