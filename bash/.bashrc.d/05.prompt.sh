@@ -88,7 +88,7 @@ _PS1_git_branch() {
 
   # auto set GIT_SSH_COMMAND
   # this for when using git<2.10, which doesn't support core.sshCommand config
-  export GIT_SSH_COMMAND=$(git config --local core.sshCommand 2>/dev/null)
+  export GIT_SSH_COMMAND=$(git config -f $gitdir/config core.sshCommand 2>/dev/null)
 
   # export all relevant vars
   export GIT_REPO="$repo"
