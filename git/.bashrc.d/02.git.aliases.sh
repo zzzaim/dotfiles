@@ -45,7 +45,8 @@ gishow() {
   fi
 }
 
-_gicomplete() {
+# tab completion for gi and gishow
+_gi_gishow_complete() {
   local dir=${GIT_INIT_TEMPLATES:=~/.gitconfig.d/templates}
   local word=${COMP_WORDS[1]}
 
@@ -56,4 +57,4 @@ _gicomplete() {
   fi
 }
 
-complete -F _gicomplete gi gishow
+complete -F _gi_gishow_complete gi gishow

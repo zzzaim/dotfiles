@@ -20,7 +20,7 @@ PS1=$PS1_prompt
 # Very, very fast, only requiring a couple of fork()s (and no forking at all
 # to determine the current git branch)
 _PS1_git_branch() {
-  export GIT_BRANCH=""
+  export GIT_BRANCH="" GIT_STATUS="" GIT_REPO=""
 
   local repo=""
   local gitdir=""
@@ -83,8 +83,15 @@ _PS1_git_branch() {
   # this is slightly faster than `git status --porcelain`
   status=$(cd $repo && git ls-files -domu --exclude-standard --directory --no-empty-directory 2>/dev/null)
 
+  # just want dirty state, not list of files
   [[ -n "$status" ]] && status=1
 
+  # auto set GIT_SSH_COMMAND
+  # this for when using git<2.10, which doesn't support core.sshCommand config
+  export GIT_SSH_COMMAND=$(git config --local core.sshCommand 2>/dev/null)
+
+  # export all relevant vars
+  export GIT_REPO="$repo"
   export GIT_STATUS="$status"
   export GIT_BRANCH="${branch}${submod}"
 }
