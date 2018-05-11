@@ -163,7 +163,7 @@ _PS1_prompt() {
   fi
 
   if [[ -n "$NODE_VER" ]]; then
-    prefix+=("${node_color}n${NODE_VER}${eend}")
+    prefix+=("${node_color}v${NODE_VER}${eend}")
   fi
 
   if [[ "$NODE_PKG" -eq 1 ]]; then
