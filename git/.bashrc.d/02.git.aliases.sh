@@ -45,6 +45,18 @@ gishow() {
   fi
 }
 
+# Edit a template's config file
+#
+# Usage: giedit <template>
+giedit() {
+  local tpl=${GIT_INIT_TEMPLATES:-~/.gitconfig.d/templates}/$1
+  local vim=${GIT_EDITOR:-${EDITOR:-vim}}
+
+  if [[ -f "$tpl/config" ]]; then
+    $vim "$tpl/config"
+  fi
+}
+
 # tab completion for gi and gishow
 _gi_gishow_complete() {
   local dir=${GIT_INIT_TEMPLATES:=~/.gitconfig.d/templates}
@@ -57,4 +69,4 @@ _gi_gishow_complete() {
   fi
 }
 
-complete -F _gi_gishow_complete gi gishow
+complete -F _gi_gishow_complete gi gishow giedit
