@@ -104,6 +104,12 @@ let g:CommandTWildIgnore = &wildignore . ",*/node_modules"
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_frontmatter = 1
 
+" ack ag
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Press F10 to show the highlight group under the cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
