@@ -46,7 +46,7 @@ alias egrep='egrep --color=auto'
 
 # Windows programs
 alias mpv='${WIN_MNT}/d/Zaim/Programs/mpv-i686-20161225/mpv.exe --quiet'
-alias chrome='${WIN_MNT}/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'
+alias chrome='"${WIN_MNT}/Program Files (x86)/Google/Chrome/Application/chrome.exe"'
 
 # misc
 alias json='python -m json.tool'
