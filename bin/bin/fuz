@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+read -r -d '' USAGE <<-EOF
+Usage: $0 [-afg] [path] <keywords...>
+
+Hot Fuzz! Search for files using fuzzy matched keywords.
+
+Options:
+  -f  Search by file names (default)
+  -a  Search by file contents (uses "ag")
+  -g  Search by file names in git repo (uses "git ls-files")
+EOF
+
+# Join parameters by a multi-character delimiter
+#
+# http://stackoverflow.com/questions/1527049/ddg#17841619
+_join() {
+  local d="$1"
+  shift
+  echo -n "$1"
+  shift
+  printf "%s" "${@/#/$d}"
+}
+
+# Find file by keyword searching filename
+_cmd_f() (
+  local pattern=$(_join '.*' "$@")
+  find . -type f -regextype awk -regex '.*'"$pattern"'.*'
+)
+
+# Find file by fuzzy matching content using ack
+_cmd_a() (
+  local pattern=$(_join '|' "$@")
+  ack --nocolor -l "($pattern)"
+)
+
+# Find file by keyword search filenames in current git repo
+_cmd_g() (
+  local pattern=$(_join '|' "$@")
+  git ls-files 2>/dev/null | grep -P "($pattern)"
+)
+
+if [[ -z "$1" ]]; then
+  echo "$USAGE" >&2
+  exit 1
+fi
+
+c=f
+
+if [[ "$1" == -* ]]; then
+  c=${1:1:1}
+  shift
+fi
+
+cmd=_cmd_$c
+
+if ! type -t $cmd >/dev/null; then
+  echo -e "Unknown option: $c\n\n$USAGE" >&2
+  exit 1
+fi
+
+$cmd "$@"
